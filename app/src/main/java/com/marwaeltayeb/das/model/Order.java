@@ -24,6 +24,12 @@ public class Order implements Serializable {
     private String shippingAddress;
     @SerializedName("phone")
     private String shippingPhone;
+    @SerializedName("color")
+    private String color;
+    @SerializedName("size")
+    private String size;
+    @SerializedName("image")
+    private String image;
 
     public int getProductId() {
         return productId;
@@ -59,5 +65,14 @@ public class Order implements Serializable {
 
     public String getShippingPhone() {
         return shippingPhone;
+    }
+    public String getColor() {
+        return color;
+    }
+    public String getSize() {
+        return size;
+    }
+    public String getImage() {
+        return image;
     }
 }

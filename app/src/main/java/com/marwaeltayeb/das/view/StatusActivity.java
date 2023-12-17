@@ -1,5 +1,6 @@
 package com.marwaeltayeb.das.view;
 
+import static com.marwaeltayeb.das.utils.Constant.LOCALHOST;
 import static com.marwaeltayeb.das.utils.Constant.ORDER;
 import static com.marwaeltayeb.das.utils.Constant.PRODUCTID;
 
@@ -10,9 +11,12 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.bumptech.glide.Glide;
 import com.marwaeltayeb.das.R;
 import com.marwaeltayeb.das.databinding.ActivityStatusBinding;
 import com.marwaeltayeb.das.model.Order;
+
+import java.text.DecimalFormat;
 
 public class StatusActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,7 +38,16 @@ public class StatusActivity extends AppCompatActivity implements View.OnClickLis
         binding.userAddress.setText(order.getShippingAddress());
         binding.userPhone.setText(order.getShippingPhone());
         binding.txtProductName.setText(order.getProductName());
-        binding.txtProductPrice.setText(String.valueOf(order.getProductPrice()));
+        binding.txtProductColorSize.setText(order.getColor()+" - " + order.getSize());
+        String imageUrl = LOCALHOST + order.getImage().replaceAll("\\\\", "/");
+        Glide.with(this)
+                .load(imageUrl)
+                .into(binding.imgProductImage);
+
+        DecimalFormat formatter = new DecimalFormat("#,###,###");
+        String formattedPrice = formatter.format(order.getProductPrice());
+
+        binding.txtProductPrice.setText(formattedPrice + " VNĐ");
         String status = getString(R.string.item, order.getOrderDateStatus());
         binding.orderStatus.setText(status);
 
